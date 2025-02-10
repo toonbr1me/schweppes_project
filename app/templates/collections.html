@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/collections.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="collections-container">
+    <div class="collections-header">
+        <h1>Наши коллекции</h1>
+    </div>
+    
+    <div class="collections-grid">
+        {% for collection in collections %}
+        <div class="collection-card" id="{{ collection.id }}">
+            {% if collection.image_url %}
+            <img src="{{ collection.image_url }}" alt="{{ collection.name }}">
+            {% endif %}
+            <div class="collection-card-content">
+                <h2 class="collection-card-title">{{ collection.name }}</h2>
+                <p class="collection-card-description">{{ collection.description }}</p>
+                <a href="{{ url_for('collection_detail', collection_id=collection.id) }}" class="collection-card-link">Подробнее</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

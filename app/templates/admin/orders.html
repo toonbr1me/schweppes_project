@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_orders.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-orders-container">
+    <div class="admin-orders-header">
+        <h1>Заказы</h1>
+    </div>
+    
+    <div class="orders-list">
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header">
+                <div class="order-info">
+                    <h2>Заказ #{{ order.id }}</h2>
+                    <span class="order-date">{{ order.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                </div>
+                <div class="order-actions">
+                    <div class="order-status {{ order.status }}">{{ order.status }}</div>
+                    <a href="{{ url_for('admin_order_detail', order_id=order.id) }}" class="btn btn-view">Просмотреть</a>
+                </div>
+            </div>
+            
+            <div class="order-details">
+                <div class="customer-info">
+                    <p><strong>Покупатель:</strong> {{ order.user.username }}</p>
+                    <p><strong>Email:</strong> {{ order.user.email }}</p>
+                    <p><strong>Способ оплаты:</strong> {{ order.payment_method }}</p>
+                    {% if order.card_last_four %}
+                    <p><strong>Карта:</strong> **** {{ order.card_last_four }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="order-items">
+                    <h3>Товары в заказе:</h3>
+                    <ul>
+                        {% for item in order.items %} 
+                        <li>
+                            {{ item.product.name }} × {{ item.quantity }}
+                            <span class="item-price">{{ item.price * item.quantity }} ₽</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="order-total">
+                        <strong>Итого:</strong> {{ order.total_amount }} ₽
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

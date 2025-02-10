@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="confirmation-container">
+    <h1>Ваш заказ подтвержден!</h1>
+    <p>Спасибо за ваш заказ. Ожидайте связи с оператором и проверяйте электронную почту.</p>
+    
+    <div class="order-details">
+        <h2>Детали заказа</h2>
+        <p><strong>Номер заказа:</strong> {{ order.id }}</p>
+        <p><strong>Дата заказа:</strong> {{ order.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+        <p><strong>Способ оплаты:</strong> {{ order.payment_method }}</p>
+        <p><strong>Общая сумма:</strong> {{ order.total_amount }} ₽</p>
+        
+        <h3>Товары в заказе:</h3>
+        <ul>
+            {% for item in order.items %}
+            <li>{{ item.product.name }} x {{ item.quantity }} - {{ item.price * item.quantity }} ₽</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <a href="{{ url_for('index') }}" class="btn">Вернуться на главную</a>
+</div>
+{% endblock %}

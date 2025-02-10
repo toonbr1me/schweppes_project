@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="cart-container">
+    <h1 class="cart-title">Корзина</h1>
+    {% if cart_items %}
+        <div class="cart-content">
+            <div class="cart-items">
+                {% for item in cart_items %}
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            {% if item.product.image_url %}
+                                <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-name">{{ item.product.name }}</h3>
+                            <p class="cart-item-price">{{ item.product.price }} ₽</p>
+                            <p class="cart-item-description">{{ item.product.description }}</p>
+                        </div>
+                        <div class="cart-item-actions">
+                            <form action="{{ url_for('update_cart_item', cart_item_id=item.id) }}" method="post" class="quantity-form">
+                                <div class="quantity-controls">
+                                    <button type="button" class="quantity-btn minus">−</button>
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input">
+                                    <button type="button" class="quantity-btn plus">+</button>
+                                </div>
+                                <button type="submit" class="update-btn">Обновить</button>
+                            </form>
+                            <a href="{{ url_for('remove_from_cart', cart_item_id=item.id) }}" class="remove-btn">
+                                <span class="remove-icon">×</span>
+                                Удалить
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <h2>Итого</h2>
+                    <div class="cart-total-details">
+                        <div class="total-row">
+                            <span>Товары ({{ cart_items|length }})</span>
+                            <span>{{ total_price }} ₽</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Общая сумма</span>
+                            <span>{{ total_price }} ₽</span>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('checkout') }}" class="checkout-btn">Оформить заказ</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="empty-cart">
+            {# <img src="{{ url_for('static', filename='img/empty-cart.png') }}" alt="Пустая корзина" class="empty-cart-image"> #}
+            <i class="fas fa-shopping-cart empty-cart-icon"></i>
+            <p>Ваша корзина пуста</p>
+            <a href="{{ url_for('catalog') }}" class="continue-shopping">Перейти к покупкам</a>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const quantityForms = document.querySelectorAll('.quantity-form');
+    
+    quantityForms.forEach(form => {
+        const minusBtn = form.querySelector('.minus');
+        const plusBtn = form.querySelector('.plus');
+        const input = form.querySelector('.quantity-input');
+        
+        minusBtn.addEventListener('click', () => {
+            const currentValue = parseInt(input.value);
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+            }
+        });
+        
+        plusBtn.addEventListener('click', () => {
+            const currentValue = parseInt(input.value);
+            input.value = currentValue + 1;
+        });
+    });
+});
+</script>
+{% endblock %}

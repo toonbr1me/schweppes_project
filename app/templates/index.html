@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero">
+    <div class="wrapper">
+        <div class="hero_content">
+            <h1 class="hero_title">
+                Schweppes and Chewits
+            </h1>
+            <p class="hero_subtitle">
+                Выбирайте качество, выбирайте вкус – выбирайте нашу швепсовскую продукцию! <br>
+                Не откладывайте на завтра то, что можно съесть и выпить сегодня! <br>
+                Не откладывайте на завтра то, что можно попробовать прямо сейчас! <br>
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Collections -->
+<section class="nev" id="collections">
+    <div class="wrapper_full">
+        <h2 class="nev_title section_title">
+            Коллекции
+        </h2>
+        <div class="nev_cards flex-container">
+            {% for collection in collections %}
+            <div class="nev_card">
+                {% if collection.image_url %}
+                <div class="nev_card-pic">
+                    <img src="{{ collection.image_url }}" alt="{{ collection.name }}" class="nev_card-thumd">
+                    <div class="nev_card-stats">
+                        <h3 class="nev_card-title">{{ collection.name }}</h3>
+                        <p class="nev_card-subtitle">{{ collection.created_at.strftime('%d.%m.%Y') }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                <p class="nev_card-desc">{{ collection.description }}</p>
+                <a href="{{ url_for('collections') }}#{{ collection.id }}" class="nev_card-more">Смотреть</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- tours -->
+<div class="tours">
+    <div class="wrapper_full">
+        <!-- первая карточка -->
+        <div class="tours_tour ">
+            <div class="tour_pic">
+                <img src="static/img/autumn/Caramel Apple.jpg" alt="Сладкая поддержка" class="tour_sm">
+            </div>
+            <div class="tour_info">
+                <h3 class="tour_title">
+                    Сладкая поддержка
+                </h3>
+                <p class="tour_desc">
+                    Запустить программу "Сладкие добрые дела", где часть прибыли от продаж будет направляться на благотворительность.
+                    Покупатели смогут голосовать за проекты, которые они хотят поддержать.
+                </p>
+                <a href="#" class="tour_more">ПОЖЕРТВОВАТЬ</a>
+            </div>
+        </div>
+
+        <!-- вторая карточка -->
+        <div class="tours_tour">
+            <div class="tour_info">
+                <h3 class="tour_title">
+                    Персонализация напитков
+                </h3>
+                <p class="tour_desc">
+                    Создай свой вкус – возможность выбрать основу, добавить сиропы, специи и придумать уникальное название.
+                </p>
+                <a href="#" class="tour_more">СОЗДАЙ</a>
+            </div>
+            <div class="tour_pic">
+                <img style="width: 100%;" src="static/img/fonds.webp" alt="Персонализация напитков" class="tour_sm">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Секция Schweppes-->
+<section class="nev" id="schweppes">
+    <div class="wrapper_full">
+        <h2 class="nev_title section_title">
+            Schweppes
+        </h2>
+    <div class="nev_cards flex-container">
+      {% for product in products|selectattr('category', 'equalto', 'schweppes')|list %}
+        <div class="nev_card">
+          {% if product.image_url %}
+              <div class="nev_card-pic">
+                  <img src="{{ product.image_url }}" alt="{{ product.name }}" class="nev_card-thumd">
+                  <div class="nev_card-stats">
+                      <h3 class="nev_card-title">{{ product.name }}</h3>
+                      <p class="nev_card-price">{{ product.price }} руб.</p>
+                  </div>
+              </div>
+          {% else %}
+            <p>Нет изображения</p>
+          {% endif %}
+          <p class="nev_card-desc">
+              {{ product.description }}
+          </p>
+          <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="nev_card-more">
+              <i class="fas fa-shopping-cart"></i> Добавить
+          </a>
+        </div>
+      {% else %}
+        <p>Товаров пока нет.</p>
+      {% endfor %}
+    </div>
+    </div>
+</section>
+
+<!--Секция Chewits-->
+<section class="nev" id="chewits">
+     <div class="wrapper_full">
+        <h2 class="nev_title section_title">
+            Chewits
+        </h2>
+    <div class="nev_cards flex-container">
+      {% for product in products|selectattr('category', 'equalto', 'chewits')|list %}
+        <div class="nev_card">
+          {% if product.image_url %}
+              <div class = "nev_card-pic">
+                  <img src="{{ product.image_url }}" alt="{{ product.name }}" class="nev_card-thumd">
+              </div>
+          {% else %}
+            <p>Нет изображения</p>
+          {% endif %}
+          <div class="nev_card-stats">
+              <h3>{{ product.name }}</h3>
+              <p>Цена: {{ product.price }} руб.</p>
+              <p>{{ product.description }}</p>
+              <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="nev_card-more">
+                  <i class="fas fa-shopping-cart"></i> Добавить
+              </a>
+          </div>
+        </div>
+      {% else %}
+        <p>Товаров пока нет.</p>
+      {% endfor %}
+    </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}  <!-- Подключаем скрипты из base.html -->
+<script>
+  // Твой дополнительный JS, если нужен, для index.html
+  document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('a[href^="index.html#"]');
+
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const targetHref = this.getAttribute('href');
+        const targetId = targetHref.split('#')[1]; // Get the anchor without 'index.html'
+
+        window.location.href = 'index.html#' + targetId;
+      });
+    });
+
+    // After loading index.html, scroll to the target
+    if (window.location.hash) {
+      const targetId = window.location.hash.substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80, // Adjust 80 to the actual height of your header
+          behavior: 'smooth',
+        });
+      }
+    }
+  });
+</script>
+
+{% endblock %}

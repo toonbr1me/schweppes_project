@@ -1,0 +1,135 @@
+.collections-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.collections-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.collections-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.collections-header h1:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #ff6b6b;
+}
+
+.collections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.collection-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.collection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.collection-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.collection-card:hover img {
+    transform: scale(1.05);
+}
+
+.collection-card-content {
+    padding: 1.5rem;
+}
+
+.collection-card-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.collection-card-description {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.collection-card-link {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: #ff6b6b;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.collection-card-link:hover {
+    background: #ff5252;
+}
+
+@media (max-width: 768px) {
+    .collections-container {
+        padding: 1rem;
+    }
+    
+    .collections-header h1 {
+        font-size: 2rem;
+    }
+    
+    .collections-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.collection-detail-container {
+    max-width: 1200px;
+    margin: 100px auto 40px;
+    padding: 0 20px;
+}
+
+.collection-detail-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.collection-detail-header h1 {
+    font-size: 3em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.collection-detail-header p {
+    font-size: 1.2em;
+    color: #666;
+    line-height: 1.6;
+}
+
+.collection-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}

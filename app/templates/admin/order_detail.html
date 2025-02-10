@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_orders.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-orders-container">
+    <div class="admin-orders-header">
+        <h1>Детали заказа #{{ order.id }}</h1>
+        <a href="{{ url_for('admin_orders') }}" class="btn btn-back">
+            <i class="fas fa-arrow-left"></i> Назад к списку
+        </a>
+    </div>
+    
+    <div class="order-card">
+        <div class="order-header">
+            <div class="order-info">
+                <h2>Заказ от {{ order.created_at.strftime('%d.%m.%Y %H:%M') }}</h2>
+                <div class="order-status {{ order.status }}">{{ order.status }}</div>
+            </div>
+        </div>
+        
+        <div class="order-details">
+            <div class="customer-info">
+                <h3>Информация о покупателе</h3>
+                <p><strong>Имя:</strong> <span>{{ order.user.username }}</span></p>
+                <p><strong>Email:</strong> <span>{{ order.user.email }}</span></p>
+                <p><strong>Способ оплаты:</strong> <span>{{ order.payment_method }}</span></p>
+                {% if order.card_last_four %}
+                <p><strong>Карта:</strong> <span>**** {{ order.card_last_four }}</span></p>
+                {% endif %}
+            </div>
+            
+            <div class="order-items">
+                <h3>Товары в заказе</h3>
+                <table class="items-table">
+                    <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Сумма</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.price }} ₽</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.price * item.quantity }} ₽</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <div class="order-total">
+                    <strong>Итого:</strong> {{ order.total_amount }} ₽
+                </div>
+            </div>
+        </div>
+        
+        <div class="order-actions">
+            <form action="{{ url_for('admin_update_order_status', order_id=order.id) }}" method="POST">
+                {{ form.csrf_token }}
+                <select name="status" class="status-select">
+                    <option value="new" {% if order.status == 'new' %}selected{% endif %}>Новый</option>
+                    <option value="processing" {% if order.status == 'processing' %}selected{% endif %}>В обработке</option>
+                    <option value="completed" {% if order.status == 'completed' %}selected{% endif %}>Завершен</option>
+                    <option value="cancelled" {% if order.status == 'cancelled' %}selected{% endif %}>Отменен</option>
+                </select>
+                <button type="submit" class="btn btn-update">Обновить статус</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

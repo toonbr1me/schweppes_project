@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-header">
+        <h2>Управление товарами</h2>
+    </div>
+    
+    <div class="admin-actions" style="margin-bottom: 20px;">
+        <a href="{{ url_for('add_product') }}" class="admin-link">Добавить новый товар</a>
+    </div>
+
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            {% if product.image_url %}
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            {% endif %}
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <p class="price">{{ product.price }} руб.</p>
+            <p class="category">Категория: {{ product.category }}</p>
+            <div class="product-actions">
+                <a href="{{ url_for('edit_product', product_id=product.id) }}" class="edit-btn">Редактировать</a>
+                <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" 
+                      onsubmit="return confirm('Вы уверены, что хотите удалить этот товар?');">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="delete-btn">Удалить</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

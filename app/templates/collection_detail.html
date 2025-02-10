@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/collection_detail.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="collection-detail-container">
+    <div class="collection-header">
+        <h1>{{ collection.name }}</h1>
+    </div>
+    
+    <div class="collection-content">
+        {% if collection.image_url %}
+        <div class="collection-image">
+            <img src="{{ collection.image_url }}" alt="{{ collection.name }}">
+        </div>
+        {% endif %}
+        
+        <div class="collection-info">
+            <div class="collection-description">
+                {{ collection.description }}
+            </div>
+            
+            {% if collection.products %}
+            <div class="collection-products">
+                <h2>Продукты в коллекции</h2>
+                <div class="products-grid">
+                    {% for product in collection.products %}
+                    <div class="product-card">
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="collection-navigation">
+        <a href="{{ url_for('collections') }}" class="back-button">Назад к коллекциям</a>
+    </div>
+</div>
+{% endblock %}

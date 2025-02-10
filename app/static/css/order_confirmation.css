@@ -1,0 +1,71 @@
+.confirmation-container {
+    max-width: 800px;
+    margin: 120px auto 40px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.confirmation-container h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.confirmation-container p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.order-details {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.order-details h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.order-details p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.order-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order-details ul li {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.btn {
+    background: linear-gradient(45deg, #006DFE, #00BFFF);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: linear-gradient(45deg, #005BCE, #009FFF);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 109, 254, 0.3);
+}

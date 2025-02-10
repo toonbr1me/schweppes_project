@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Schweppes & Chewits{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stele.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nev_card_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/order_confirmation.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+     {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="wrapper">
+            <div class="header_wrapper">
+                <div class="header_logo">
+                    <a href="/" class="header_logo-link">
+                        <img src="{{ url_for('static', filename='img/svg/logo.png') }}" alt="schweppes" class="header_logo-pic" width="100" height="100">
+                    </a>
+                </div>
+                <nav class="header_nav">
+                    <ul class="header_list">
+                         <li class="header_item">
+                            <a href="{{ url_for('collections') }}" class="header_link">Коллекции</a>
+                        </li>
+                        <li class="header_item">
+                            <a href="{{ url_for('catalog') }}" class="header_link">Каталог</a>
+                        </li>
+                        <li class="header_item">
+                            <a href="{{ url_for('schweppes_page') }}" class="header_link">Schweppes</a>
+                        </li>
+                        <li class="header_item">
+                            <a href="{{ url_for('chewits_page') }}" class="header_link">Chewits</a>
+                        </li>
+
+                        {% if 'user_id' in session %}
+                            <li><a href="{{ url_for('view_cart') }}">Корзина</a></li>
+                            <li><a href="{{ url_for('logout') }}">Выйти</a></li>
+                             {% if g.user and g.user.is_admin %}
+                                <li><a href="{{ url_for('admin_dashboard') }}">Админ-панель</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li><a href="{{ url_for('login') }}">Войти</a></li>
+                            <li><a href="{{ url_for('register') }}">Регистрация</a></li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+       <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        {% block content %}{% endblock %}
+    </main>
+
+   <footer class="footer">
+        <div class="wrapper">
+            <div class="footer_item">
+                <div class="footer_logo">
+                    <img src="{{ url_for('static', filename='img/svg/logo.png') }}" alt="schweppes" width="150" height="150" class="footer_logo-pic">
+                </div>
+                <nav class="footer_nev">
+                    <ul class="footer_menu">
+                        <li class="footer_menu-item">
+                            <a href="#" class="footer-_men-link">schweppes.chewits@gmail.com</a>
+                        </li>
+                        <li class="footer_menu-item">
+                            <a href="#" class="footer-_men-link">VK – vk.com/schweppeschewits</a>
+                        </li>
+                        <li class="footer_menu-item">
+                            <a href="#" class="footer-_men-link">Telegram – t.me/schweppeschewits</a>
+                        </li>
+                        <li class="footer_menu-item">
+                            <a href="#" class="footer-_men-link">Телефон: +7 (900) 555-77-99</a>
+                        </li>
+                        <li class="footer_menu-item">
+                            <a href="#" class="footer-_men-link">Адрес: Комаровского 9а</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    {% block scripts %}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const links = document.querySelectorAll('a[href^="#"]');
+
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Вычитаем высоту хедера (если он фиксированный)
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+    </script>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-header">
+        <h2>Создание коллекции</h2>
+    </div>
+
+    <div class="admin-card" style="max-width: 800px; margin: 0 auto;">
+        <form method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.name.label }}<br>
+                {{ form.name(size=50) }}
+                {% for error in form.name.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.description.label }}<br>
+                {{ form.description() }}
+                {% for error in form.description.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.image.label }}<br>
+                {{ form.image() }}
+            </p>
+            <p>
+                {{ form.products.label }}<br>
+                {{ form.products(size=10, multiple=true) }}
+                {% for error in form.products.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    </div>
+</div>
+{% endblock %}

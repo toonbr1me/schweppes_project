@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/catalog.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="catalog-container">
+    <div class="catalog-header">
+        <h1>Каталог товаров</h1>
+    </div>
+
+    <div class="category-filter">
+        <a href="{{ url_for('catalog', category='all') }}" class="category-btn {% if current_category == 'all' %}active{% endif %}">Все товары</a>
+        <a href="{{ url_for('catalog', category='schweppes') }}" class="category-btn {% if current_category == 'schweppes' %}active{% endif %}">Schweppes</a>
+        <a href="{{ url_for('catalog', category='chewits') }}" class="category-btn {% if current_category == 'chewits' %}active{% endif %}">Chewits</a>
+        {# <a href="{{ url_for('catalog', category='summer') }}" class="category-btn {% if current_category == 'summer' %}active{% endif %}">Лето</a>
+        <a href="{{ url_for('catalog', category='winter') }}" class="category-btn {% if current_category == 'winter' %}active{% endif %}">Зима</a>
+        <a href="{{ url_for('catalog', category='spring') }}" class="category-btn {% if current_category == 'spring' %}active{% endif %}">Весна</a>
+        <a href="{{ url_for('catalog', category='autumn') }}" class="category-btn {% if current_category == 'autumn' %}active{% endif %}">Осень</a>
+        <a href="{{ url_for('catalog', category='exclusive') }}" class="category-btn {% if current_category == 'exclusive' %}active{% endif %}">Эксклюзив</a> #}
+    </div>
+
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            {% if product.image_url %}
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            {% endif %}
+            <div class="product-card-content">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <p class="price">{{ product.price }} ₽</p>
+                <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="add-to-cart-btn">В корзину</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
