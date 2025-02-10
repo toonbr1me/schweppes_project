@@ -1,11 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect  # Добавляем CSRF-защиту
-from dotenv import load_dotenv  #Для секретного ключа
+# from dotenv import load_dotenv  #Для секретного ключа
 import os
 
 
-load_dotenv()  # Загрузка переменных окружения из .env (если есть)
+# load_dotenv()  # Загрузка переменных окружения из .env (если есть)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your_super_secret_key')  # Лучше хранить в .env
