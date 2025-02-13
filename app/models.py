@@ -28,7 +28,7 @@ class Product(db.Model):
     image_filename = db.Column(db.String(255))  # Имя файла изображения
     category = db.Column(db.String(50))  # Категория товара (summer, winter, etc.)
     cart_items = db.relationship('CartItem', backref='product', lazy='dynamic')
-    order_items = db.relationship('OrderItem', backref='product', lazy=True)
+    order_items = db.relationship('OrderItem', backref='product', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Product {self.name}>'
@@ -82,11 +82,11 @@ class Order(db.Model):
     card_last_four = db.Column(db.String(4), nullable=True)
     
     # Отношения
-    items = db.relationship('OrderItem', backref='order', lazy=True)
+    items = db.relationship('OrderItem', backref='order', cascade='all, delete-orphan')
 
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id', ondelete='CASCADE'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id', ondelete='CASCADE'), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, default=1)
     price = db.Column(db.Float, nullable=False)  # Цена на момент заказа

@@ -1,7 +1,9 @@
 .admin-collections-container {
-    max-width: 1200px;
-    margin: 120px auto 40px;
-    padding: 0 20px;
+    margin: 0;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .admin-collections-header {
@@ -9,15 +11,19 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
+    flex-direction: row;
+    gap: 15px;
+    text-align: center;
 }
 
 .admin-collections-header h1 {
-    font-size: 2.5em;
+    font-size: 1.8rem;
+    margin: 0;
     color: #333;
 }
 
 .admin-collections-header .btn {
-    background: linear-gradient(45deg, #006DFE, #00BFFF);
+    background: #4CAF50;
     color: white;
     padding: 12px 30px;
     border-radius: 25px;
@@ -32,15 +38,21 @@
 }
 
 .admin-collections-header .btn:hover {
-    background: linear-gradient(45deg, #005BCE, #009FFF);
+    background: #45a049;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 109, 254, 0.3);
 }
 
+.collections-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
 .collection-card {
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     overflow: hidden;
     transition: all 0.4s ease;
     margin-bottom: 30px;
@@ -64,23 +76,30 @@
 }
 
 .collection-card-title {
-    font-size: 1.5em;
+    font-size: 18px;
+    margin: 0 0 10px 0;
     font-weight: 600;
     color: #333;
-    margin-bottom: 10px;
 }
 
 .collection-card-description {
-    font-size: 1.1em;
     color: #666;
+    font-size: 14px;
     margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .collection-card-actions {
     display: flex;
+    gap: 10px;
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
+    flex-direction: column;
 }
 
 .collection-card-actions form {
@@ -94,10 +113,10 @@
 }
 
 .collection-card-actions .btn, .collection-card-actions button {
-    background: linear-gradient(45deg, #006DFE, #00BFFF);
+    background: #2196F3;
     color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 8px 16px;
+    border-radius: 6px;
     font-weight: 600;
     transition: all 0.3s ease;
     text-align: center;
@@ -106,22 +125,66 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     display: inline-block;
-    border: none; /* Убираем рамку */
-    cursor: pointer; /* Добавляем курсор указателя */
-    margin: 0; /* Убираем отступы */
+    border: none;
+    cursor: pointer;
+    margin: 0;
 }
 
 .collection-card-actions .btn:hover, .collection-card-actions button:hover {
-    background: linear-gradient(45deg, #005BCE, #009FFF);
+    background: #1976D2;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 109, 254, 0.3);
 }
 
 .collection-card-actions .btn-delete, .collection-card-actions button.btn-delete {
-    background: linear-gradient(45deg, #dc3545, #ff4757);
+    background: #f44336;
 }
 
 .collection-card-actions .btn-delete:hover, .collection-card-actions button.btn-delete:hover {
-    background: linear-gradient(45deg, #c82333, #e84118);
+    background: #d32f2f;
     box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .collections-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-collections-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .collection-card-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .admin-collections-container {
+        margin: 0;
+        padding: 15px;
+    }
+
+    .admin-main {
+        margin-left: 0;
+    }
 }

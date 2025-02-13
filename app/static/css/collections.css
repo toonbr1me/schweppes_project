@@ -40,6 +40,10 @@
     overflow: hidden;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 450px; /* Минимальная высота карточки */
 }
 
 .collection-card:hover {
@@ -60,6 +64,10 @@
 
 .collection-card-content {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
 }
 
 .collection-card-title {
@@ -73,6 +81,12 @@
     font-size: 0.95rem;
     line-height: 1.5;
     margin-bottom: 1.5rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Ограничиваем текст 4 строками */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .collection-card-link {
@@ -84,6 +98,9 @@
     border-radius: 25px;
     font-weight: 500;
     transition: background 0.3s ease;
+    text-align: center;
+    margin-top: auto; /* Прижимаем кнопку к низу */
+    align-self: center; /* Центрируем кнопку по горизонтали */
 }
 
 .collection-card-link:hover {

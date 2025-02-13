@@ -1,14 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_collections.css') }}">
+    {{ super() }}  {# Важно! Добавляем наследование стилей родительского шаблона #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_collections.css') }}">
 {% endblock %}
 
-{% block content %}
+{% block admin_content %}
 <div class="admin-collections-container">
     <div class="admin-collections-header">
-        <h1>Коллекции</h1>
-        <a href="{{ url_for('create_collection') }}" class="btn">Создать коллекцию</a>
+        <h1>Управление коллекциями</h1>
+        <a href="{{ url_for('create_collection') }}" class="btn">
+            <i class="fas fa-plus"></i> Создать коллекцию
+        </a>
     </div>
     
     <div class="collections-list">
@@ -16,14 +19,24 @@
         <div class="collection-card">
             {% if collection.image_url %}
             <img src="{{ collection.image_url }}" alt="{{ collection.name }}">
+            {% else %}
+            <div class="collection-image-placeholder">
+                <i class="fas fa-images"></i>
+            </div>
             {% endif %}
             <div class="collection-card-content">
                 <h2 class="collection-card-title">{{ collection.name }}</h2>
                 <p class="collection-card-description">{{ collection.description }}</p>
                 <div class="collection-card-actions">
-                    <a href="{{ url_for('edit_collection', collection_id=collection.id) }}" class="btn">Редактировать</a>
-                    <form action="{{ url_for('delete_collection', collection_id=collection.id) }}" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-delete">Удалить</button>
+                    <a href="{{ url_for('edit_collection', collection_id=collection.id) }}" class="btn">
+                        <i class="fas fa-edit"></i> Редактировать
+                    </a>
+                    <form action="{{ url_for('delete_collection', collection_id=collection.id) }}" method="POST" 
+                          onsubmit="return confirm('Вы уверены, что хотите удалить эту коллекцию?');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-delete">
+                            <i class="fas fa-trash"></i> Удалить
+                        </button>
                     </form>
                 </div>
             </div>

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="admin-layout">
+    <nav class="admin-sidebar">
+        <div class="admin-nav-header">
+            <h2>Панель управления</h2>
+        </div>
+        <ul class="admin-nav">
+            <li><a href="{{ url_for('admin_dashboard') }}" {% if request.endpoint == 'admin_dashboard' %}class="active"{% endif %}>
+                <i class="fas fa-home"></i> Обзор
+            </a></li>
+            <li><a href="{{ url_for('admin_products') }}" {% if request.endpoint == 'admin_products' %}class="active"{% endif %}>
+                <i class="fas fa-box"></i> Товары
+            </a></li>
+            <li><a href="{{ url_for('admin_collections') }}" {% if request.endpoint == 'admin_collections' %}class="active"{% endif %}>
+                <i class="fas fa-layer-group"></i> Коллекции
+            </a></li>
+            <li><a href="{{ url_for('admin_orders') }}" {% if request.endpoint == 'admin_orders' %}class="active"{% endif %}>
+                <i class="fas fa-shopping-cart"></i> Заказы
+            </a></li>
+            <li><a href="{{ url_for('admin_images') }}" {% if request.endpoint == 'admin_images' %}class="active"{% endif %}>
+                <i class="fas fa-images"></i> Изображения
+            </a></li>
+        </ul>
+    </nav>
+    
+    <main class="admin-main">
+        <div class="admin-content">
+            {% block admin_content %}{% endblock %}
+        </div>
+    </main>
+</div>
+{% endblock %}

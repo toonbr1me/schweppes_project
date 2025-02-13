@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Schweppes & Chewits{% endblock %}</title>
+    
+    <!-- Добавляем фавикон -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/stele.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nev_card_styles.css') }}">
@@ -15,7 +23,9 @@
             font-family: 'Inter', sans-serif;
         }
     </style>
-     {% block head %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notifications.css') }}">
+    <script src="{{ url_for('static', filename='js/notifications.js') }}" defer></script>
+    {% block head %}{% endblock %}
 </head>
 <body>
     <header class="header">
@@ -83,19 +93,19 @@
                 <nav class="footer_nev">
                     <ul class="footer_menu">
                         <li class="footer_menu-item">
-                            <a href="#" class="footer-_men-link">schweppes.chewits@gmail.com</a>
+                            <a href="mailto:schweppes@t1brime-dev.ru" class="footer-_men-link">schweppes@t1brime-dev.ru</a>
                         </li>
                         <li class="footer_menu-item">
-                            <a href="#" class="footer-_men-link">VK – vk.com/schweppeschewits</a>
+                            <a href="https://t.me/Apelsin_kam" class="footer-_men-link">VK – vk.com/schweppeschewits</a>
                         </li>
                         <li class="footer_menu-item">
-                            <a href="#" class="footer-_men-link">Telegram – t.me/schweppeschewits</a>
+                            <a href="https://t.me/Vi_Lilina" class="footer-_men-link">Telegram – t.me/schweppeschewits</a>
                         </li>
                         <li class="footer_menu-item">
-                            <a href="#" class="footer-_men-link">Телефон: +7 (900) 555-77-99</a>
+                            <a href="https://t.me/t1brime" class="footer-_men-link">Телефон: +7 (900) 555-77-99</a>
                         </li>
                         <li class="footer_menu-item">
-                            <a href="#" class="footer-_men-link">Адрес: Комаровского 9а</a>
+                            <a href="https://t.me/fiilllu" title="Самый очень невероятно полезный человек в команде, ебать ту люсю" class="footer-_men-link">Адрес: Комаровского 9а</a>
                         </li>
                     </ul>
                 </nav>

@@ -1,10 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_orders.css') }}">
+    {{ super() }}  {# Важно! Добавляем наследование стилей родительского шаблона #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_orders.css') }}">
 {% endblock %}
 
-{% block content %}
+{% block admin_content %}
 <div class="admin-orders-container">
     <div class="admin-orders-header">
         <h1>Заказы</h1>

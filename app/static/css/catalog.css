@@ -53,13 +53,14 @@
 }
 
 .product-card {
-    background: #fff;
+    background: white;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     overflow: hidden;
-    transition: all 0.4s ease;
+    transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .product-card:hover {
@@ -71,48 +72,57 @@
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-bottom: 1px solid #eee;
 }
 
 .product-card-content {
-    padding: 25px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
 }
 
 .product-card h3 {
-    font-size: 1.3em;
-    color: #333;
+    font-size: 1.2rem;
     margin-bottom: 10px;
+    color: #333;
 }
 
-.product-card p {
-    font-size: 1em;
+.product-card p:not(.price) {
     color: #666;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 8; /* Ограничиваем текст 8 строками */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 12em; /* Фиксированная высота для 8 строк */
 }
 
-.product-card .price {
-    font-size: 1.3em;
-    font-weight: 600;
-    color: #006DFE;
-    margin-bottom: 20px;
+.price {
+    font-weight: bold;
+    color: #2196F3;
+    font-size: 1.1rem;
+    margin: 15px 0;
 }
 
 .add-to-cart-btn {
-    display: inline-block;
-    padding: 12px 30px;
-    background: linear-gradient(45deg, #006DFE, #00BFFF);
+    background: #4CAF50;
     color: white;
-    border-radius: 30px;
+    padding: 10px 20px;
+    border-radius: 25px;
     text-decoration: none;
-    font-weight: 600;
+    display: inline-block;
     transition: all 0.3s ease;
+    text-align: center;
+    margin-top: auto; /* Прижимаем кнопку к низу */
 }
 
 .add-to-cart-btn:hover {
-    background: linear-gradient(45deg, #005BCE, #009FFF);
+    background: #45a049;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 109, 254, 0.3);
 }
 
 /* Адаптивность */

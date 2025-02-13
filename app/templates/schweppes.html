@@ -2,9 +2,9 @@
 
 {% block content %}
 <section class="content">
-    <div class="wrapper">
+    <div class="wrapper_full"> {# Изменено с wrapper на wrapper_full для соответствия главной странице #}
         <h1>Schweppes</h1>
-        <div class="nev_cards">
+        <div class="nev_cards flex-container"> {# Добавлен класс flex-container как на главной #}
             {% for product in products %}
               <div class="nev_card">
                 {% if product.image_url %}
@@ -21,7 +21,9 @@
                 <p class="nev_card-desc">
                     {{ product.description }}
                 </p>
-                <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="nev_card-more">В корзину</a>
+                <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="nev_card-more">
+                    <i class="fas fa-shopping-cart"></i> Добавить
+                </a>
               </div>
             {% else %}
               <p>Товаров пока нет.</p>
